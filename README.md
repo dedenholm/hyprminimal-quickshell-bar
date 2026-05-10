@@ -35,6 +35,8 @@ The bar hides until you hover the top edge of the screen (or trigger it via IPC)
 | `free` (procps) | Memory readout |
 | `upower` | Battery status |
 | `bc` | Temperature conversion in `hwmonscript.sh` |
+| `playerctld` (playerctl) | Tracks the most recently active media player |
+| `mpDris2` | Exposes MPD as a MPRIS player (required for MPD playback control) |
 
 ### Optional but expected by default config
 
@@ -65,21 +67,35 @@ Icon glyphs require a Nerd Font. `font3` defaults to `GohuFont 14 Nerd Font Mono
 
 1. Install Quickshell (see [quickshell.outfoxxed.me](https://quickshell.outfoxxed.me/)).
 
-2. Clone this repo into your Quickshell config directory:
+2. Install required dependencies:
+
+**Arch:**
+```sh
+sudo pacman -S playerctl upower bc pipewire procps-ng
+yay -S mpdris2  # or paru -S mpdris2
+```
+
+**Ubuntu/Debian:**
+```sh
+sudo apt install playerctl upower bc pipewire procps
+pip install mpDris2  # or check your distro repos
+```
+
+3. Clone this repo into your Quickshell config directory:
 
 ```sh
 git clone https://github.com/dedenholm/hyprminimal \
     ~/.config/quickshell/hyprminimal
 ```
 
-3. Copy and edit the config:
+4. Copy and edit the config:
 
 ```sh
 # No copy needed — just open Config.qml directly
 $EDITOR ~/.config/quickshell/hyprminimal/Config.qml
 ```
 
-4. Launch:
+5. Launch:
 
 ```sh
 quickshell -p ~/.config/quickshell/hyprminimal
@@ -102,6 +118,8 @@ Add the following to your `hyprland.conf`.
 
 ```sh
 exec-once = qs -c hyprminimal
+exec-once = playerctld daemon
+exec-once = mpdris2
 ```
 
 **Keybinds** — the bar is designed to be triggered by the Super key rather than always visible. Bind show/hide to Super press/release, and pin to Super+P:
