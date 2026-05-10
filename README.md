@@ -1,8 +1,8 @@
 # hyprminimal
 
-A minimal, auto-hiding topbar for [Hyprland](https://hyprland.org/), built with [Quickshell](https://quickshell.outfoxxed.me/).
+A minimal, oled-friendly auto-hiding topbar for [Hyprland](https://hyprland.org/), built with [Quickshell](https://quickshell.outfoxxed.me/).
 
-The bar hides until you hover the top edge of the screen (or trigger it via IPC), keeping your desktop uncluttered.
+The bar hides until you hover the top edge of the screen (or trigger it via IPC), keeping your desktop uncluttered and preventing oled burn-in.
 
 ![bar screenshot placeholder](./screenshot.png)
 
@@ -18,7 +18,7 @@ The bar hides until you hover the top edge of the screen (or trigger it via IPC)
 - System tray
 - Clock (click to toggle short/long format)
 - Configurable toggle buttons (e.g. smart-home devices, remote scripts via SSH)
-- Battery widget (laptop-friendly)
+- Battery widget (laptop-friendly) (NB: Not very regularily tested, your mileage may vary)
 
 ---
 
@@ -44,7 +44,7 @@ The bar hides until you hover the top edge of the screen (or trigger it via IPC)
 | `pavucontrol` | Audio control GUI (right-click audio widget) | `audioControlCmd` |
 | `btop` | Resource monitor (click CPU widget) | `resourceMonitorCmd` |
 | `fastfetch` | System info (left-click logo) | `fetchCmd` |
-| `rmpc` or `ncmpcpp` | MPD client | `musicPlayerCmd`, `musicPlayerCmdRemote` |
+| `rmpc` | MPD client | `musicPlayerCmd`, `musicPlayerCmdRemote` |
 | `fluent-reader` | RSS reader | `rssCmd` |
 | A [Nerd Font](https://www.nerdfonts.com/) | Icons throughout the bar | `font1` / `font2` / `font3` |
 
@@ -92,6 +92,35 @@ exec-once = quickshell -p ~/.config/quickshell/hyprminimal
 
 ---
 
+
+## Hyprland configuration
+
+Add the following to your `hyprland.conf`.
+
+**Autostart** — launch the bar on login:
+
+```sh
+exec-once = qs -c hyprminimal
+```
+
+**Keybinds** — the bar is designed to be triggered by the Super key rather than always visible. Bind show/hide to Super press/release, and pin to Super+P:
+
+```sh
+# Show bar on Super press
+bind  = , Super_L, exec, qs -c hyprminimal ipc call panelshow showPanel
+
+# Hide bar on Super release
+bindr = , Super_L, exec, qs -c hyprminimal ipc call panelshow hidePanel
+
+# Toggle pin (keeps bar visible, prevents auto-hide)
+bind  = Super_L, p, exec, qs -c hyprminimal ipc call panelshow pinPanel
+```
+
+The bar also reveals itself on hover — mouse to the top edge of the screen to show it without using the keyboard.
+
+---
+
+
 ## Configuration
 
 **All user-facing settings live in `Config.qml`.** You should not need to edit any other file for a standard setup.
@@ -128,7 +157,7 @@ The bar includes a strip of up to three custom toggle buttons. Each button reads
 // Example: a smart speaker toggle
 property bool   btn1Enabled:      true
 property string btn1Icon:         " 󰴸 "
-property string btn1StateFile:    "/home/you/ipc/speaker_state"
+property string btn1StateFile:    "/home/you/ipc/speaker_state" //reads a plain text file, and expects either a 1 or a 0
 property string btn1ToggleScript: "/home/you/scripts/speaker_toggle.sh"
 
 // Remote SSH (leave remoteHost empty to run scripts locally)
@@ -180,59 +209,7 @@ Then adjust the pattern in `elements/hwmonscript.sh` if needed.
 
 ---
 
-## File structure
 
-```
-hyprminimal/
-├── Config.qml                  ← Edit this for your setup
-├── shell.qml                   ← Main bar layout
-├── Time.qml                    ← Clock singleton
-├── elements/
-│   ├── ArchLogo.qml
-│   ├── Audio.qml               ← Pipewire sink + volume
-│   ├── Battery.qml             ← upower battery status
-│   ├── Buttons.qml             ← Custom toggle buttons
-│   ├── ClockWidget.qml
-│   ├── Cpu.qml
-│   ├── Divider.qml
-│   ├── Memory.qml
-│   ├── Playerctl.qml           ← Media player info
-│   ├── Playerctl_script.sh
-│   ├── SysTray.qml
-│   ├── Temp.qml
-│   ├── Workspaces.qml
-│   └── hwmonscript.sh
-└── README.md
-```
-
----
-
-## Hyprland configuration
-
-Add the following to your `hyprland.conf`.
-
-**Autostart** — launch the bar on login:
-
-```sh
-exec-once = qs -c hyprminimal
-```
-
-**Keybinds** — the bar is designed to be triggered by the Super key rather than always visible. Bind show/hide to Super press/release, and pin to Super+P:
-
-```sh
-# Show bar on Super press
-bind  = , Super_L, exec, qs -c hyprminimal ipc call panelshow showPanel
-
-# Hide bar on Super release
-bindr = , Super_L, exec, qs -c hyprminimal ipc call panelshow hidePanel
-
-# Toggle pin (keeps bar visible, prevents auto-hide)
-bind  = Super_L, p, exec, qs -c hyprminimal ipc call panelshow pinPanel
-```
-
-The bar also reveals itself on hover — mouse to the top edge of the screen to show it without using the keyboard.
-
----
 
 ## AI disclosure
 
