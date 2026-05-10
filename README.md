@@ -46,6 +46,7 @@ The bar hides until you hover the top edge of the screen (or trigger it via IPC)
 | `fastfetch` | System info (left-click logo) | `fetchCmd` |
 | `rmpc` | MPD client | `musicPlayerCmd`, `musicPlayerCmdRemote` |
 | `fluent-reader` | RSS reader | `rssCmd` |
+| the fonts `Nudistar` and `Eurostile`|
 | A [Nerd Font](https://www.nerdfonts.com/) | Icons throughout the bar | `font1` / `font2` / `font3` |
 
 All optional dependencies can be swapped out by editing `Config.qml`.
@@ -54,7 +55,7 @@ All optional dependencies can be swapped out by editing `Config.qml`.
 
 ## Fonts
 
-The default config uses **Eurostile** and **Nudista Light** (commercial fonts). You can replace them with any fonts you have installed — set `font1` and `font2` in `Config.qml`.
+The default config uses **Eurostile** and **Nudista Light** (commercial fonts). Its easy to find free versions of the files with a quick web-search. You can also replace them with any fonts you have installed — set `font1` and `font2` in `Config.qml`.
 
 Icon glyphs require a Nerd Font. `font3` defaults to `GohuFont 14 Nerd Font Mono` but any Nerd Font works. If your primary font already includes Nerd Font glyphs you can leave `font3` as a fallback.
 
