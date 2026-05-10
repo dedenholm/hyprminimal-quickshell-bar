@@ -68,7 +68,7 @@ Icon glyphs require a Nerd Font. `font3` defaults to `GohuFont 14 Nerd Font Mono
 2. Clone this repo into your Quickshell config directory:
 
 ```sh
-git clone https://github.com/yourusername/hyprminimal \
+git clone https://github.com/dedenholm/hyprminimal \
     ~/.config/quickshell/hyprminimal
 ```
 
