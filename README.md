@@ -232,7 +232,7 @@ Then adjust the pattern in `elements/hwmonscript.sh` if needed.
 
 ## AI disclosure
 
-All code in this project was written by hand. [Claude](https://claude.ai) was used to assist with the GitHub release preparation — specifically extracting hardcoded user-specific values into `Config.qml`, refactoring `elements_Buttons.qml` to use it, and writing this README.
+All code in this project was written by hand. Claude was used to assist with the GitHub release preparation — specifically extracting hardcoded user-specific values into `Config.qml`, refactoring `elements_Buttons.qml` to use it, and writing this README.
 
 ---
 
