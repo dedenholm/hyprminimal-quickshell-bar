@@ -218,5 +218,4 @@ All code in this project was written by hand. [Claude](https://claude.ai) was us
 ---
 
 ## License
-
-MIT
+GPL-3.0
