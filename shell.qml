@@ -52,7 +52,19 @@ Scope {
     }
 
     // ── Timers ───────────────────────────────────────────────────────
-    Timer {
+   Timer {
+        id: enterTimer
+        interval: Config.enterDelayMs
+        repeat: false
+        onTriggered: {
+          if (rootMouseArea.containsMouse) {
+            bar.visible= true;
+            main.processRun();
+            root.visible = false;
+              
+            }
+        }
+    } Timer {
         id: hideTimer
         interval: Config.hideDelayMs
         repeat: false
@@ -103,14 +115,17 @@ Scope {
         anchors { left: true; right: true; top: true }
 
         MouseArea {
+            id: rootMouseArea
             height: root.height
             width: root.width
             hoverEnabled: true
             onEntered: {
+                enterTimer.start();
                 hideTimer.stop();
-                bar.visible = true;
-                main.processRun();
-                root.visible = false;
+                
+                //bar.visible = true;
+                //main.processRun();
+                //root.visible = false;
             }
         }
     }
